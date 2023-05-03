@@ -10,3 +10,4 @@
 <p>npm install typescript --save-dev</p>
 <p>npx tsc --init</p>
 <p>npx tsc</p>
+<p>npm install @types/node</p>

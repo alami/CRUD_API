@@ -1,3 +1,9 @@
 node_modules/
 .idea/
 build/
+
+.env
+.env.example
+jest.config.json
+nodemon.json
+webpack.config.js
