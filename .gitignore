@@ -3,7 +3,6 @@ node_modules/
 build/
 
 .env
-.env.example
-jest.config.json
-nodemon.json
-webpack.config.js
+# jest.config.json
+# nodemon.json
+# webpack.config.js

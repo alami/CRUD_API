@@ -1,0 +1,15 @@
+{
+  "name": "nodemon",
+  "version": "",
+  "description": "",
+  "nodemonConfig": {
+    "watch": [
+      "server"
+    ],
+    "ext": [ "js", "ts", "json" ],
+    "delay": "5",
+    "ignore": [
+    ],
+    "exec": "ts-node index.ts"
+  }
+}
