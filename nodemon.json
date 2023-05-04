@@ -11,6 +11,6 @@
     "ignore": [
       "build"
     ],
-    "exec": "ts-node/esm  src/index.ts"
+    "exec": "ts-node index.ts"
   }
 }

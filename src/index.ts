@@ -1,13 +1,12 @@
 import * as process from 'process';
 import * as http from 'http';
-import * as dotenv from 'dotenv';
 import * as  uuid from 'uuid';
 import {router} from './router/router'
 import {balancer} from './balancer/balancer'
 import {getProcessStatus} from './users/utils'
 import data from './users/data.json'
+import "dotenv/config"
 
-dotenv.config()
 let PORT_API = Number(process.env.DEV_PORT)
 if (process.env.STATUS === 'dev')
     PORT_API = Number(process.env.DEV_PORT)
