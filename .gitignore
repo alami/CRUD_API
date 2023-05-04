@@ -3,6 +3,6 @@ node_modules/
 build/
 
 .env
-# jest.config.json
 # nodemon.json
-# webpack.config.js
+jest.config.json
+webpack.config.js

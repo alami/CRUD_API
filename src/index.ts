@@ -1,23 +1,20 @@
 import * as process from 'process';
 import * as http from 'http';
 import * as dotenv from 'dotenv';
+import * as  uuid from 'uuid';
 import {router} from './router/router'
 import {balancer} from './balancer/balancer'
 import {getProcessStatus} from './users/utils'
-//import data from './users/data.json' assert {type: 'json'}
+import data from './users/data.json'
 
 dotenv.config()
-const PORT_API = Number(process.env.DEV_PORT)
-const HOSTNAME = process.env.HOSTNAME
-const CLUSTER = "cluster"
-const { CRUD_API_MODE } = process.env
+let PORT_API = Number(process.env.DEV_PORT)
+if (process.env.STATUS === 'dev')
+    PORT_API = Number(process.env.DEV_PORT)
+else
+    PORT_API = Number(process.env.PROD_PORT)
 
-let data = [
-    { "id": 1, "username": "John", "age": 30 , "hobbies": ["scvosh"] },
-    { "id": 2, "username": "Mary", "age": 25 , "hobbies": ["football"] },
-    { "id": 3, "username": "Peter", "age": 35 , "hobbies": ["basketball"] },
-    { "id": 4, "username": "Peter", "age": 35 , "hobbies": [] }
-]
+const HOSTNAME = process.env.HOSTNAME
 
 const server = http.createServer(
     (req, res) => {
@@ -33,6 +30,25 @@ const server = http.createServer(
                 res.end(JSON.stringify(newData));
             });
         }
+        /*if (req.method === 'PUT' && req.url.startsWith('/data/')) {
+            const id = parseInt(req.url.split('/')[2]);
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
+            });
+            req.on('end', () => {
+                const updatedData = JSON.parse(body);
+                data[id] = updatedData;
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(updatedData));
+            });
+        }*/
+        /*if (req.method === 'DELETE' && req.url.startsWith('/data/')) {
+            const id = parseInt(req.url.split('/')[2]);
+            data.splice(id, 1);
+            res.writeHead(204);
+            res.end();
+        }*/
         if (req.method === 'GET' && req.url === '/api/users') {
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(JSON.stringify(data));
@@ -46,7 +62,5 @@ const server = http.createServer(
 
 server.listen(PORT_API,
     HOSTNAME, () => {
-    console.log(`Server running at http://${PORT_API}:${HOSTNAME}/`);
+    console.log(`Server running at http://${HOSTNAME}:${PORT_API}/`);
 });
-
-console.log('CRUD API started')
