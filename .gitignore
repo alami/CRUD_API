@@ -3,6 +3,4 @@ node_modules/
 build/
 
 .env
-# nodemon.json
-jest.config.json
 webpack.config.js
