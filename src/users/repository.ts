@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid"
 import {ApiError} from "../errors/ApiError";
-import {ErrMsg, getIdNotFoundMessage} from "../errors/helper";
+import {ErrMsg, idNotFoundMsg} from "../errors/helper";
 import { User, Done, IUserRepository, IUserService } from "./ifaces";
 import data from './data.json'
 
@@ -19,7 +19,7 @@ export class UserRepository implements IUserRepository {
         return new Promise((resolve, reject) => {
             const user = this.users.find(user => user.id === id)
             if (user) resolve(user)
-            reject(ApiError.notFound(getIdNotFoundMessage(id)))
+            reject(ApiError.notFound(idNotFoundMsg(id)))
         })
         // const user = this.users.find(user => user.id === id)
         // if (user) return (user)
@@ -41,7 +41,7 @@ export class UserRepository implements IUserRepository {
                 this.users.splice(this.users.indexOf(candidate),1)
                 resolve("done")
             } else {
-                reject(ApiError.notFound(getIdNotFoundMessage(id)))
+                reject(ApiError.notFound(idNotFoundMsg(id)))
             }
         })
     }
@@ -49,7 +49,7 @@ export class UserRepository implements IUserRepository {
         return new Promise((resolve, reject) => {
             const candidate = this.users.find(user => user.id === id)
             if (!candidate) {
-                reject(ApiError.notFound(getIdNotFoundMessage(id)))
+                reject(ApiError.notFound(idNotFoundMsg(id)))
             } else {
                 const updateUser = {...user, id}
                 this.users.splice(this.users.indexOf(candidate), 1, updateUser )

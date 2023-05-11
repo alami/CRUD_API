@@ -48,7 +48,9 @@ console.log(`>> ${method} ${url} >> ${procState} #${process.pid}:${processPort}`
             }
         } catch (error) {
             const {status, message} = error instanceof ApiError
-                ? error : ApiError.internal()
+                 ? error : ApiError.srv_side_err()
+            res.statusCode = status
+            res.end(JSON.stringify({message}))
         }
     }
 }

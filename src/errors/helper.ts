@@ -5,12 +5,14 @@ export const enum ErrCode {
 }
 export enum ErrMsg  {
     INVALID_ID= "Id is wrong",
-    INVALID_DATA= "JSON Data is wrong",
-    NO_ENDPOINT= "Endpoint wrong",
-    NO_METHOD= "Method wrong",
+    INVALID_DATA= "JSON in body data not vaid",
+    NO_ENDPOINT= "Endpoint is wrong",
+    NO_METHOD= "Method not vaid",
     SRV_SIDE_ERR= "Server side error",
 }
-
-export function getIdNotFoundMessage(id:string) {
-    return `Not Found Message with id = ${id}`
+export function idNotFoundMsg(id:string) {
+    return `User ${id} Not Found`
+}
+export function endpontNotFoundMsg(method:string, url:string) {
+    return `!> ${method}: ${url}\`Not Found`
 }

@@ -9,7 +9,7 @@ export class ApiError extends Error{
     static notFound (message: string) {
         return new ApiError(ErrCode.NOT_FOUND, message)
     }
-    static internal () {
+    static srv_side_err () {
         return new ApiError(ErrCode.SRV_SIDE_ERR, ErrMsg.SRV_SIDE_ERR)
     }
 }
