@@ -1,6 +1,6 @@
 import {IncomingMessage, ServerResponse} from "http";
 import {HTTPCodes, IUserController, IUserService} from "./ifaces";
-import {getBody, getId} from "./utils"
+import {getBody, getId} from "./helper"
 
 export class UserController implements IUserController{
     constructor(private userService:IUserService) {}

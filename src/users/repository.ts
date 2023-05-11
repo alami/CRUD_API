@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid"
 import {ApiError} from "../errors/ApiError";
-import {ErrMsg, getIdNotFoundMessage} from "../errors/constants";
+import {ErrMsg, getIdNotFoundMessage} from "../errors/helper";
 import { User, Done, IUserRepository, IUserService } from "./ifaces";
 import data from './data.json'
 

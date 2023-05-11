@@ -1,13 +1,13 @@
 import {IncomingMessage, ServerResponse} from "http"
 import {ApiError} from "../errors/ApiError"
 import {UserController} from "../users/controller"
-import {ErrCode, ErrMsg} from "../errors/constants"
+import {ErrCode, ErrMsg} from "../errors/helper"
 import {UserRepository} from  "../users/repository"
 import {UserService} from  "../users/service"
 import {API_URL, API_URL_WITH_ID, METHOD, IUserRepository} from "../users/ifaces";
 import * as http from "http";
 import * as util from "util";
-import {getInvalidEndpointMessage, getProcState} from "../users/utils";
+import {getInvalidEndpointMessage, getProcState} from "../users/helper";
 
 export function router (processPort: number) {
     const userRepository =  new UserRepository([])
@@ -22,7 +22,7 @@ export function router (processPort: number) {
             if (!url.match(API_URL) && !url.match(API_URL_WITH_ID)) {
                 throw ApiError.notFound(getInvalidEndpointMessage(<string>method, <string>url))
             }
-            console.log(`${method} ${url} >> ${procState} PID#${process.pid} on port ${processPort}`)
+console.log(`>> ${method} ${url} >> ${procState} #${process.pid}:${processPort}`)
             switch (method) {
                 case METHOD.GET:
                     if (url.match(API_URL_WITH_ID)) {

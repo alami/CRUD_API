@@ -1,7 +1,7 @@
 import {IncomingMessage} from "http";
 import {User} from "./ifaces";
 import {ApiError} from "../errors/ApiError";
-import {ErrMsg} from "../errors/constants";
+import {ErrMsg} from "../errors/helper";
 import cluster from "cluster";
 
 export function getId (url:string) {
@@ -34,8 +34,8 @@ export const isUser = (obj:Partial<User>):obj is User => {
 }
 export function getProcState () {
     return  process.env.CRUD_API_MODE === "cluster"
-        ? cluster.isPrimary ? "PrimaryCluster" : "WorkerСluster"
-        : "AloneServer"
+        ? cluster.isPrimary ? "PrimaryApp" : "WorkerApp"
+        : "AloneApp"+' >> '
 }
 
 export function getInvalidEndpointMessage  (method: string, url: string){

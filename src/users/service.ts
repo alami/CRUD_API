@@ -1,7 +1,7 @@
 import {validate} from "uuid";
 import { User, Done, IUserService, IUserRepository} from "./ifaces";
 import {ApiError} from "../errors/ApiError";
-import {ErrMsg} from "../errors/constants";
+import {ErrMsg} from "../errors/helper";
 export class UserService implements IUserService {
     constructor(private userRepository: IUserRepository) {
     }
