@@ -8,7 +8,7 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc --build",
     "prod": "node build/index.js",
-    "dev:multi": "node build/index.js",
+    "lb": "cross-env APP_MODE=loadbalancer nodemon src/index.ts",
     "prod:muli": "node build/index.js"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "@types/uuid": "^9.0.1",
+    "cross-env": "^7.0.3",
     "jest": "^29.5.0",
     "nodemon": "^2.0.22",
     "ts-jest": "^29.1.0",

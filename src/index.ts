@@ -1,11 +1,8 @@
 import * as process from 'process';
 import * as http from 'http';
-import * as  uuid from 'uuid';
-import {router} from './router/router'
-import {balancer} from './balancer/balancer'
-import data from './users/data.json'
+import router from './router/router'
+import {loadbalancer} from './router/loadbalancer'
 import "dotenv/config"
-import * as util from "util";
 
 let PORT_API = Number(process.env.DEV_PORT)
 if (process.env.STATUS === 'dev')
@@ -15,11 +12,16 @@ else
 
 const HOSTNAME = process.env.HOSTNAME
 
+let {APP_MODE} = process.env
+APP_MODE = (APP_MODE!==undefined)?'LOADBALANCER':'STANDALONE'
+
 const server = http.createServer(
-    router(PORT_API)
-);
+    (APP_MODE==="STANDALONE") ? router(PORT_API) : loadbalancer(PORT_API)
+)
 
 server.listen(PORT_API,
     HOSTNAME, () => {
-    console.log(`Server running at http://${HOSTNAME}:${PORT_API}/`);
+    console.log(`App was running at http://${HOSTNAME}:${PORT_API}/ in ${APP_MODE} mode`);
 });
+
+export {APP_MODE}

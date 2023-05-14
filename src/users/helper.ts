@@ -1,7 +1,7 @@
+import {APP_MODE} from "../index"
 import {IncomingMessage} from "http";
 import {User} from "./ifaces";
-import {ApiError} from "../errors/ApiError";
-import {ErrMsg} from "../errors/helper";
+import {badRequest, ErrMsg} from "../errors/helper";
 import cluster from "cluster";
 
 export function getId (url:string) {
@@ -15,16 +15,16 @@ export async function getBody (request: IncomingMessage): Promise<{}>  {
         request.on("data", (chunk:Uint8Array)=>{
             buff.push(chunk)
         }).on("end",()=>{
-            const body = Buffer.concat(buff).toString().trim()
+            const body = Buffer.concat(buff).toString()
             try {
                 resolve(body?JSON.parse(body):{})
             }catch (e) {
-                reject(ApiError.badRequest(ErrMsg.INVALID_DATA))
+                reject(badRequest(ErrMsg.INVALID_DATA))
             }
         }).on("error",()=>{reject()})
     })
 }
-export const isUser = (obj:Partial<User>):obj is User => {
+export const isValidUser = (obj:Partial<User>):obj is User => {
     return (
         typeof obj.username === "string" &&
         typeof obj.age === "number" &&
@@ -32,12 +32,6 @@ export const isUser = (obj:Partial<User>):obj is User => {
         obj.hobbies.every((h)=>typeof h === "string")
     )
 }
-export function getProcState () {
-    return  process.env.CRUD_API_MODE === "cluster"
-        ? cluster.isPrimary ? "PrimaryApp" : "WorkerApp"
-        : "AloneApp"+' >> '
-}
-
-export function getInvalidEndpointMessage  (method: string, url: string){
-    return `cannot ${method} ${url}`
-}
+export function getProcState () {return  APP_MODE}
+export const CONTENT_TYPE  = "application/json"
+export const HOST = "localhost"
