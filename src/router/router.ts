@@ -2,21 +2,15 @@ import {IncomingMessage, ServerResponse} from "http"
 import {ApiError} from "../errors/ApiError"
 import {UserController} from "../users/controller"
 import {ErrCode, ErrMsg, endpontNotFoundMsg, badRequest, notFound, srv_side_err} from "../errors/helper"
-import {UserRepository} from  "../users/repository"
-import {lbUserRepository} from "../users/lbUserRepository"
-import {UserService} from  "../users/service"
+import {UserRepository} from "../users/repository"
+import {UserService} from "../users/service"
 import {API_URL, API_URL_WITH_ID, METHOD, IUserRepository} from "../users/ifaces";
-import {getProcState} from "../users/helper";
-import cluster from "cluster";
 
-export default function router (processPort: number) {
-    const userRepository = cluster.isWorker
-         ? new lbUserRepository()
-         : new UserRepository([])
+export const router = (processPort: number) => {
+    const userRepository = new UserRepository([])
     const userService = new UserService(<IUserRepository>userRepository)
     const userController = new UserController(userService)
-    const procState = getProcState()
-    return async (req:IncomingMessage, res:ServerResponse) => {
+    return async (req: IncomingMessage, res: ServerResponse) => {
         res.setHeader("Content-Type", "application/json")
         try {
             const {url, method} = req
@@ -24,7 +18,7 @@ export default function router (processPort: number) {
             if (!url.match(API_URL) && !url.match(API_URL_WITH_ID)) {
                 throw notFound(endpontNotFoundMsg(<string>method, <string>url))
             }
-console.log(`>> ${method} ${url} >> ${procState} #${process.pid}:${processPort}`)
+            console.log(`>> ${method} ${url} >>  #${process.pid}:${processPort}`)
             switch (method) {
                 case METHOD.GET:
                     if (url.match(API_URL_WITH_ID)) {
@@ -50,7 +44,7 @@ console.log(`>> ${method} ${url} >> ${procState} #${process.pid}:${processPort}`
             }
         } catch (error) {
             const {status, message} = error instanceof ApiError
-                 ? error : srv_side_err()
+                ? error : srv_side_err()
             res.statusCode = status
             res.end(JSON.stringify({message}))
         }

@@ -2,11 +2,9 @@ import {v4 as uuidv4} from "uuid"
 import {ApiError} from "../errors/ApiError";
 import {ErrMsg, idNotFoundMsg, notFound} from "../errors/helper";
 import { User, Done, IUserRepository, IUserService } from "./ifaces";
-import data from './data.json'
 
 export class UserRepository implements IUserRepository {
     constructor(private users: User[]) {
-        for(var i in data) this.users.push(<User> data[i])  //load Users from data.json
     }
     async getAll(): Promise<User[]> {
         return this.users

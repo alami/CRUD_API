@@ -15,7 +15,6 @@
 <p>npm install</p>
 
 # PostMan
-<p>already added 4 users for ease checkup</p>
 <p><b>GET</b> http://localhost:3000/localhost:3000/api/users</p>
 <p><b>GET</b> http://localhost:3000/api/users/480948c7-9351-477c-ac57-7af40d37954e</p>
 <p><b>DELETE</b> http://localhost:3000/api/users/480948c7-9351-477c-ac57-7af40d37954e</p>

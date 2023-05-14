@@ -1,8 +1,6 @@
-import {APP_MODE} from "../index"
 import {IncomingMessage} from "http";
 import {User} from "./ifaces";
 import {badRequest, ErrMsg} from "../errors/helper";
-import cluster from "cluster";
 
 export function getId (url:string) {
     const IDs = url.match(/\/api\/users\/([\w-]+)/)
@@ -32,6 +30,5 @@ export const isValidUser = (obj:Partial<User>):obj is User => {
         obj.hobbies.every((h)=>typeof h === "string")
     )
 }
-export function getProcState () {return  APP_MODE}
 export const CONTENT_TYPE  = "application/json"
 export const HOST = "localhost"

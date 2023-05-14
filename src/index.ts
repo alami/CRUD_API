@@ -1,7 +1,6 @@
 import * as process from 'process';
 import * as http from 'http';
-import router from './router/router'
-import {loadbalancer} from './router/loadbalancer'
+import {router} from './router/router'
 import "dotenv/config"
 
 let PORT_API = Number(process.env.DEV_PORT)
@@ -16,12 +15,10 @@ let {APP_MODE} = process.env
 APP_MODE = (APP_MODE!==undefined)?'LOADBALANCER':'STANDALONE'
 
 const server = http.createServer(
-    (APP_MODE==="STANDALONE") ? router(PORT_API) : loadbalancer(PORT_API)
+    (APP_MODE==="STANDALONE") ? router(PORT_API) : router(PORT_API)
 )
 
 server.listen(PORT_API,
     HOSTNAME, () => {
     console.log(`App was running at http://${HOSTNAME}:${PORT_API}/ in ${APP_MODE} mode`);
 });
-
-export {APP_MODE}
