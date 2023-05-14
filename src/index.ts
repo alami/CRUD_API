@@ -14,7 +14,7 @@ const HOSTNAME = process.env.HOSTNAME
 let {APP_MODE} = process.env
 APP_MODE = (APP_MODE!==undefined)?'LOADBALANCER':'STANDALONE'
 
-const server = http.createServer(
+export const server = http.createServer(
     (APP_MODE==="STANDALONE") ? router(PORT_API) : router(PORT_API)
 )
 

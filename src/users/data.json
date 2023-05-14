@@ -1,0 +1,6 @@
+[
+  { "id": "480948c7-9351-477c-ac57-7af40d37954e", "username": "John", "age": 30 , "hobbies": ["scvosh","football"] },
+  { "id": "60c91781-78bd-4000-bbcc-b66cfbf2d7ea", "username": "Mary", "age": 25 , "hobbies": ["football"] },
+  { "id": "714ab331-1a3b-4f69-b2d1-6a68363b1094", "username": "Peter", "age": 35 , "hobbies": ["basketball"] },
+  { "id": "7f52df02-712a-4865-a96c-1a76aa77c578", "username": "Peter", "age": 35 , "hobbies": [] }
+]
